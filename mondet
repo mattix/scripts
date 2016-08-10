@@ -1,0 +1,7 @@
+#!/bin/bash
+if [ $(xrandr | grep "HDMI1 connected" -c) -gt 0 ]; then
+    xrandr --output HDMI1 --auto --right-of eDP1 &
+else
+    xrandr --output HDMI1 --off
+fi
+

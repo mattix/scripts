@@ -1,0 +1,10 @@
+#!/bin/bash
+if [ "$1" == "--reset-brightness" ]
+then
+  current_int=$(printf "%.0f" $(xbacklight -get))
+  if [ $current_int -lt 10 ]; then
+      xbacklight -set 10
+  fi
+fi
+#i3lock -i $HOME/Pictures/archple.png -t -c bfbfbf
+slock

@@ -1,0 +1,19 @@
+#!/bin/bash
+BATTERYSTATUS=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0)
+PERCENTAGE=$(echo $BATTERYSTATUS | grep -oP '(?<=percentage:\s)\w+')
+STATE=$(echo $BATTERYSTATUS | grep -oP '(?<=state:\s)\w+')
+
+case "$STATE" in
+  discharging)
+    if [ $PERCENTAGE -lt 15 ]; then
+      WARNINGIN="<span color='red'> -=- "
+      WARNINGOUT=" -=- </span>"
+    fi
+    STATUS=""
+    ;;
+  charging)
+    STATUS=""
+    ;;
+esac
+
+echo "${WARNINGIN}${STATUS} ${PERCENTAGE}%${WARNINGOUT}"

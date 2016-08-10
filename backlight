@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [ "$1" == "" ]; then
+  printf "%0.0f\n" $(xbacklight)
+elif [ "$1" == "+" ] || [ "$1" == "4" ]; then
+  xbacklight -inc 5
+  pkill -RTMIN+12 i3blocks
+  printf "%0.0f\n" $(xbacklight)
+elif [ "$1" == "-" ] || [ "$1" == "5" ]; then
+  xbacklight -dec 5
+  pkill -RTMIN+12 i3blocks
+  printf "%0.0f\n" $(xbacklight)
+elif [ "$1" == "1" ]; then
+  xbacklight -set 100
+  printf "%0.0f\n" $(xbacklight)
+elif [ "$1" == "3" ]; then
+  xbacklight -set 5
+  printf "%0.0f\n" $(xbacklight)
+fi
