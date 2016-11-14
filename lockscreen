@@ -7,4 +7,4 @@ then
   fi
 fi
 #i3lock -i $HOME/Pictures/archple.png -t -c bfbfbf
-slock
+xset dpms force off; slock
