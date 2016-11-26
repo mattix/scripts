@@ -7,4 +7,10 @@ then
   fi
 fi
 #i3lock -i $HOME/Pictures/archple.png -t -c bfbfbf
-xset dpms force off; slock
+if [ "$2" == "--monitor-off" ]
+then
+  xset dpms force off
+  sleep 1
+  xset dpms force off
+fi
+slock
