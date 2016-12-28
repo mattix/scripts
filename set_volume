@@ -1,9 +1,11 @@
 #!/bin/bash
+INTERFACE=1
+
 if [ "$1" == "+" ]; then
-  pactl set-sink-volume 0 +5%
+  pactl set-sink-volume $INTERFACE +5%
 elif [ "$1" == "-" ]; then
-  pactl set-sink-volume 0 -5%
+  pactl set-sink-volume $INTERFACE -5%
 elif [ "$1" == "." ]; then
-  pactl set-sink-mute 0 toggle
+  pactl set-sink-mute $INTERFACE toggle
 fi
 pkill -RTMIN+10 i3blocks
