@@ -1,9 +1,16 @@
 #!/bin/bash
+LAPTOPMONITOR="eDP-1"
+EXTERNAL="DP-1-1"
+
 if [ $(xrandr | grep "HDMI1 connected" -c) -gt 0 ]; then
-    xrandr --output HDMI1 --auto --right-of eDP1 &
-    pactl set-card-profile 0 output:hdmi-stereo
+    xrandr --output HDMI1 --auto --right-of $LAPTOPMONITOR &
+#    pactl set-card-profile 0 output:hdmi-stereo
+elif [ $(xrandr | grep "DP-1-1 connected" -c) -gt 0 ]; then
+    xrandr --output $EXTERNAL --auto --right-of $LAPTOPMONITOR &
+#    pactl set-card-profile 0 output:hdmi-stereo
 else
     xrandr --output HDMI1 --off
-    pactl set-card-profile 0 output:analog-stereo
+    xrandr --output $EXTERNAL --off
+#    pactl set-card-profile 0 output:analog-stereo
 fi
 
