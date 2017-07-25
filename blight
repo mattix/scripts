@@ -1,0 +1,9 @@
+#!/bin/bash
+
+bl_device=/sys/class/backlight/intel_backlight/brightness
+
+if [ "$1" == "" ]; then
+  cat $bl_device
+elif [[ $1 == +* ]] || [[ $1 == -* ]]; then
+  echo $(($(cat $bl_device) $1)) | tee $bl_device
+fi
