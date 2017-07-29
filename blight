@@ -1,9 +1,33 @@
 #!/bin/bash
 
 bl_device=/sys/class/backlight/intel_backlight/brightness
+min=1
+max=1500
 
-if [ "$1" == "" ]; then
+function get_percent {
+  echo $((100 * $(cat $bl_device) / $max))
+}
+
+function get_value {
   cat $bl_device
+}
+
+function set_value {
+  (echo $1 | tee $bl_device) >/dev/null
+}
+
+if [ "$1" == "max" ]; then
+  set_value $max
+elif [ "$1" == "min" ]; then
+  set_value $min
 elif [[ $1 == +* ]] || [[ $1 == -* ]]; then
-  echo $(($(cat $bl_device) $1)) | tee $bl_device
+  set_value $(($(get_value) $1))
+elif [ "$1" == "set" ]; then
+  set_value $2
+elif [ "$1" == "1" ]; then
+  set_value $min
+elif [ "$1" == "2" ]; then
+  set_value $max
 fi
+
+get_percent
