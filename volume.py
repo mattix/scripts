@@ -11,5 +11,5 @@ if len(sys.argv) is 1:
     p_mute = re.compile('Mute: no')
     info = subprocess.getoutput('pactl list sinks')
     volume = p_vol.findall(info)[0]
-    status = '' if len(p_mute.findall(info)) > 0 else ''
+    status = '' if len(p_mute.findall(info)) > 0 else ''
     print("{0} {1}".format(status, volume))
