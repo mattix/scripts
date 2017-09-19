@@ -10,21 +10,16 @@ def get_status_icon(percent):
         return ''
     if percent > 10:
         return ''
-    return ''
+    return '<span color="#ff3300"></span>'
 
 status = subprocess.getoutput('acpi')
-splitted = status.split(' ')
-percent = int(splitted[3].replace('%,', ''))
-status_icon = get_status_icon(percent)
+statuses = status.split('\n')
+index = 1 if len(statuses) > 1 and ('Unknown' in statuses[0] or 'unavailable' in statuses[0]) else 0
+splitted = statuses[index].split(' ')
+percent = int(splitted[3][0: splitted[3].find('%')])
+time_left = splitted[4] if len(splitted) > 4 else ''
 
-formatted = status.replace(
-    'Charging', '').replace(
-    'Discharging', status_icon).replace(
-    'until charged', '').replace(
-    'remaining', '').replace(
-    'Battery 0:', '').replace(
-    ',', '')
+icon = '' if 'Charging' in status else get_status_icon(percent)
+formatted = '{0} {1}% {2}'.format(icon, percent, time_left)
+
 print(formatted)
-
-# status = '' if v['POWER_SUPPLY_STATUS'] is 'Charging' else ''
-#print("{0} {1:3d} %".format(status, int(percent)))
