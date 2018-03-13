@@ -1,0 +1,12 @@
+#!/bin/bash
+LAYOUT=$(setxkbmap -query | awk '$1 == "layout:"' | awk '{ print $2 }')
+
+if [ "$1" = "--toggle" ]; then
+  if [ "$LAYOUT" = "fi" ]; then
+    setxkbmap us
+  else
+    setxkbmap fi
+  fi
+else
+  echo $LAYOUT
+fi
