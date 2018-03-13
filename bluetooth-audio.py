@@ -2,7 +2,8 @@
 import subprocess
 import sys
 
-device = '00:16:94:1A:C9:AA'
+#device = '00:16:94:1A:C9:AA'
+device = '2C:41:A1:82:BB:D9'
 
 command = 'bt-device -i {0} | grep -c "Connected: 1"'.format(device)
 connected = int(subprocess.getoutput(command)) > 0
